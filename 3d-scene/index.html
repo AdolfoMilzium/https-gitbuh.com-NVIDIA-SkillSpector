@@ -1,0 +1,72 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+html,body{margin:0;background:#070b18;overflow:hidden}
+#c{display:block}
+#t{position:absolute;left:0;right:0;top:9%;text-align:center;font:800 54px/1.1 Arial,Helvetica,sans-serif;color:#fff;transition:none}
+#t b{color:#facc15;display:block;font-size:66px}
+#s{position:absolute;left:8%;right:8%;bottom:7%;text-align:center;font:600 28px Arial,sans-serif;color:#94a3b8}
+#i{position:absolute;left:0;right:0;top:9%;text-align:center;font:800 40px Arial,sans-serif;color:#f43f5e;opacity:0}
+</style></head><body>
+<canvas id="c" width="540" height="960"></canvas>
+<div id="t">¿A DÓNDE SE VA<b>TU DINERO?</b></div>
+<div id="i">LOS INTERESES CUESTAN</div>
+<div id="s">el flujo del dinero</div>
+<script src="node_modules/three/build/three.min.js"></script>
+<script>
+const W=540,H=960,DUR=8;
+const r=new THREE.WebGLRenderer({canvas:document.getElementById('c'),antialias:true,preserveDrawingBuffer:true});
+r.setPixelRatio(1);r.setSize(W,H,false);r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFSoftShadowMap;
+const scene=new THREE.Scene();scene.background=new THREE.Color(0x0b1330);scene.fog=new THREE.Fog(0x0b1330,9,22);
+const cam=new THREE.PerspectiveCamera(38,W/H,.1,50);
+scene.add(new THREE.HemisphereLight(0x8ab4ff,0x101830,.9));
+const key=new THREE.DirectionalLight(0xffffff,1.6);key.position.set(3,6,5);key.castShadow=true;
+key.shadow.mapSize.set(1024,1024);Object.assign(key.shadow.camera,{left:-6,right:6,top:6,bottom:-6});scene.add(key);
+const rim=new THREE.PointLight(0xfacc15,12,14);rim.position.set(-3,2,-2);scene.add(rim);
+const floor=new THREE.Mesh(new THREE.CircleGeometry(8,64),new THREE.MeshStandardMaterial({color:0x15204a,roughness:.35,metalness:.4}));
+floor.rotation.x=-Math.PI/2;floor.position.y=-1.2;floor.receiveShadow=true;scene.add(floor);
+// wallet
+const wallet=new THREE.Group();
+const blue=new THREE.MeshStandardMaterial({color:0x2563eb,roughness:.45,metalness:.2});
+const gold=new THREE.MeshStandardMaterial({color:0xfacc15,roughness:.25,metalness:.85,emissive:0x8a6a00});
+const body=new THREE.Mesh(new THREE.BoxGeometry(2.4,1.5,.7),blue);body.castShadow=true;wallet.add(body);
+const flap=new THREE.Mesh(new THREE.BoxGeometry(2.4,.5,.78),new THREE.MeshStandardMaterial({color:0x1d4ed8,roughness:.45}));flap.position.y=.62;wallet.add(flap);
+const clasp=new THREE.Mesh(new THREE.CylinderGeometry(.22,.22,.1,32),gold);clasp.rotation.x=Math.PI/2;clasp.position.set(.85,0,.4);wallet.add(clasp);
+wallet.position.set(0,-.45,0);scene.add(wallet);
+// bank
+const bank=new THREE.Group();const stone=new THREE.MeshStandardMaterial({color:0x94a3b8,roughness:.6});
+const base=new THREE.Mesh(new THREE.BoxGeometry(2.4,.2,1.2),stone);base.position.y=-.1;bank.add(base);
+for(let i=0;i<4;i++){const c=new THREE.Mesh(new THREE.CylinderGeometry(.13,.13,1.1,16),stone);c.position.set(-.85+i*.57,.55,0);c.castShadow=true;bank.add(c)}
+const roof=new THREE.Mesh(new THREE.ConeGeometry(1.5,.6,4),new THREE.MeshStandardMaterial({color:0x64748b}));roof.rotation.y=Math.PI/4;roof.scale.set(1,1,.55);roof.position.y=1.4;bank.add(roof);
+bank.position.set(6,-1.1,-1);scene.add(bank);
+// coins
+const N=48,coins=[];
+const cg=new THREE.CylinderGeometry(.22,.22,.05,28);
+const redm=new THREE.MeshStandardMaterial({color:0xf43f5e,roughness:.3,metalness:.7,emissive:0x400010});
+for(let i=0;i<N;i++){const m=new THREE.Mesh(cg,gold.clone());m.castShadow=true;scene.add(m);
+ coins.push({m,t0:.2+i*.09,x:(((i*37)%10)/10-.45)*1.8,z:(((i*53)%10)/10-.5)*.5,spin:3+Math.random()*5,out:i%3==0&&i>12});}
+const ease=x=>x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2;
+function render(t){
+ const ph=t/DUR;
+ const k=Math.min(1,Math.max(0,(t-4)/3));cam.position.set(Math.sin(ph*.9-.3)*10.5+k*1.5,2.4+ph*.6,Math.cos(ph*.9-.3)*10.5);cam.lookAt(1.6*k,.3,0);
+ wallet.rotation.y=Math.sin(t*.9)*.15;wallet.position.y=-.45+Math.sin(t*2)*.05;
+ bank.visible=t>4.2;bank.position.x=7-Math.min(1,Math.max(0,(t-4.2)/1))*4.4;
+ for(const c of coins){
+  const dt=t-c.t0;const m=c.m;
+  if(dt<0){m.visible=false;continue}m.visible=true;
+  m.rotation.set(dt*c.spin,dt*c.spin*.7,0);
+  if(!c.out||t<5){const f=Math.min(1,dt/1.1);m.position.set(c.x*(1-f*.6),5-ease(f)*5.4+(f<1?0:0),c.z);
+   if(f>=1){const s=Math.min(1,(dt-1.1)/.3);m.position.y=-.1-s*.5;m.scale.setScalar(1-s);}else m.scale.setScalar(1);
+   if(c.out&&t>4.2&&f>=1){m.scale.setScalar(1);}
+  }
+  if(c.out&&t>=5){const f=Math.min(1,(t-5-(c.t0%1.5)*.8)/1.6);if(f<0){m.visible=false;continue}
+   m.material=redm;m.scale.setScalar(1);const e=ease(f);m.position.set(.5+e*2.4,.5+Math.sin(e*Math.PI)*1.6,.4);if(f>=1)m.visible=false;}
+ }
+ // overlays
+ document.getElementById('t').style.opacity=t<3?1:Math.max(0,1-(t-3)/.6);
+ document.getElementById('i').style.opacity=t>5.2?Math.min(1,(t-5.2)/.6):0;
+ document.getElementById('s').textContent=t<4.2?'el flujo del dinero':'tu dinero trabaja para el banco, no para ti';
+ r.render(scene,cam);
+}
+window.render=render;window.DUR=DUR;render(0);
+</script></body></html>
