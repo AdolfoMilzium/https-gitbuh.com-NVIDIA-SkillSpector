@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "higgsfield": {
+      "type": "http",
+      "url": "https://mcp.higgsfield.ai/mcp"
+    },
+    "hostinger": {
+      "type": "http",
+      "url": "https://mcp.hostinger.com"
+    }
+  }
+}

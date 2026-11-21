@@ -1,0 +1,33 @@
+{
+  "name": "kit-web-inmersiva",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Kit de Claude Code (marca blanca, en español) que convierte la web de una empresa en una web inmersiva 3D con túnel, usando Higgsfield para todo lo visual.",
+  "type": "module",
+  "engines": {
+    "node": ">=18.18"
+  },
+  "scripts": {
+    "preflight": "node scripts/preflight.mjs",
+    "extraer": "node scripts/extraer.mjs",
+    "validar": "node scripts/validar.mjs",
+    "dev": "node scripts/dev.mjs",
+    "construir": "node scripts/construir.mjs",
+    "ver": "node scripts/ver.mjs",
+    "capturas": "node scripts/capturas.mjs",
+    "descargar": "node scripts/descargar.mjs",
+    "empaquetar": "node scripts/empaquetar.mjs",
+    "demo": "node scripts/dev.mjs demo",
+    "contactar": "node scripts/contactar.mjs"
+  },
+  "dependencies": {
+    "archiver": "^7.0.1",
+    "gsap": "^3.13.0",
+    "lenis": "^1.3.0",
+    "playwright": "^1.50.0",
+    "qrcode": "^1.5.4",
+    "sharp": "^0.34.0",
+    "three": "^0.180.0",
+    "vite": "^7.0.0"
+  }
+}

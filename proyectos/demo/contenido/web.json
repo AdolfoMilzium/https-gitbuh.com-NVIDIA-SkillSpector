@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "empresa": {
+    "nombre": "Luminar Fibra",
+    "slug": "demo",
+    "sector": "Telecomunicaciones (empresa ficticia de demostración)",
+    "idioma": "es",
+    "url_origen": "https://example.com",
+    "contacto": { "email": "hola@example.com", "telefono": "+34 900 000 000", "direccion": "Calle Ficticia 1, Ciudad Imaginaria" }
+  },
+  "marca": {
+    "colores": { "fondo": "#070b14", "texto": "#eef3fb", "acento": "#35e0ff", "acento2": "#8a5cff" },
+    "tipografias": { "titulo": "Space Grotesk", "cuerpo": "Inter" }
+  },
+  "escenario": {
+    "arquetipo": "neon",
+    "semilla": 42,
+    "metafora": "Un haz de fibra óptica visto desde dentro: pulsos de luz viajando por un túnel de cristal."
+  },
+  "capitulos": [
+    {
+      "id": "portada", "tipo": "portada", "posicion": "izquierda", "etiqueta": "Luminar Fibra",
+      "titulo": "Internet a la velocidad de la luz",
+      "texto": "Entra en el túnel y descubre cómo una red de fibra puede cambiar la forma de trabajar, jugar y vivir conectado.",
+      "boton": { "texto": "Empezar el viaje", "enlace": "#cap-red" }
+    },
+    {
+      "id": "red", "tipo": "texto", "posicion": "derecha", "etiqueta": "La red",
+      "titulo": "Una red hecha de luz",
+      "texto": "Cada hogar y cada negocio se conecta con fibra hasta la puerta. Sin cobre, sin cuellos de botella y con una latencia que casi no se nota."
+    },
+    {
+      "id": "servicios", "tipo": "lista", "posicion": "izquierda", "etiqueta": "Servicios",
+      "titulo": "Lo que hacemos",
+      "texto": "Tres formas de estar conectado.",
+      "items": [
+        { "titulo": "Fibra para hogares", "texto": "Velocidad simétrica y router incluido." },
+        { "titulo": "Conectividad para empresas", "texto": "Líneas dedicadas con soporte prioritario." },
+        { "titulo": "Instalación sin obras", "texto": "Un técnico, una tarde y listo." }
+      ]
+    },
+    {
+      "id": "cifras", "tipo": "cifras", "posicion": "centro", "etiqueta": "En números",
+      "titulo": "Cifras de ejemplo",
+      "cifras": [
+        { "valor": 12500, "sufijo": "+", "etiqueta": "hogares conectados", "origen": "Dato ficticio de la demostración" },
+        { "valor": 98, "sufijo": " %", "etiqueta": "clientes satisfechos", "origen": "Dato ficticio de la demostración" },
+        { "valor": 24, "sufijo": " h", "etiqueta": "soporte técnico", "origen": "Dato ficticio de la demostración" }
+      ]
+    },
+    {
+      "id": "galeria", "tipo": "galeria", "posicion": "derecha", "etiqueta": "Instalaciones",
+      "titulo": "Así se ve por dentro",
+      "texto": "Centros de datos, cableado y equipos que mantienen todo en marcha.",
+      "galeria": [
+        { "alt": "Sala de equipos con luces azules" },
+        { "alt": "Manguera de fibra óptica iluminada" },
+        { "alt": "Técnico revisando un panel de conexiones" },
+        { "alt": "Vista aérea de una ciudad conectada" }
+      ]
+    },
+    {
+      "id": "opinion", "tipo": "cita", "posicion": "centro", "etiqueta": "Opiniones",
+      "titulo": "Lo que dicen de nosotros",
+      "cita": { "texto": "Cita de ejemplo: aquí irá una opinión real publicada en la web de la empresa.", "autor": "Cliente de ejemplo", "origen": "Cita ficticia de la demostración" }
+    },
+    {
+      "id": "contacto", "tipo": "cierre", "posicion": "izquierda", "etiqueta": "Contacto",
+      "titulo": "Hablemos",
+      "texto": "Cuéntanos qué necesitas y te respondemos en menos de un día laborable.",
+      "boton": { "texto": "Escribirnos", "enlace": "mailto:hola@example.com" }
+    }
+  ],
+  "meta": {
+    "titulo": "Luminar Fibra · Experiencia inmersiva (demo)",
+    "descripcion": "Demostración del kit: una web inmersiva en 3D que se recorre con el scroll, con una empresa ficticia."
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "_ayuda": "Todo lo personalizable del kit vive aquí. /empezar rellena 'creador'. No cambies los enlaces de 'afiliados'.",
+  "creador": {
+    "nombre": "",
+    "web": "",
+    "email": "",
+    "telefono": "",
+    "logo": ""
+  },
+  "textos": {
+    "aviso_concepto": "Concepto no oficial · imágenes generadas con IA",
+    "aviso_vista_previa": "Vista previa sin imágenes finales",
+    "credito": "Propuesta creada por {creador}",
+    "aviso_publicidad": "#publicidad: los enlaces de Higgsfield y Hostinger de este kit son enlaces de afiliado; el creador del kit puede recibir una comisión si te das de alta a través de ellos, sin coste extra para ti."
+  },
+  "afiliados": {
+    "higgsfield": "https://higgsfield.ai/s/higgsfield-mcp-general-yt-juanpe-divisual-gKRvLj",
+    "hostinger": "https://www.hostinger.com/juanpe",
+    "hostinger_ruta": "Productos → Hosting → Hosting web",
+    "hostinger_plan_recomendado": "Unlimited",
+    "hostinger_nota_plan": "El plan Premium solo admite 3 webs; para prospectar con varias empresas conviene Unlimited."
+  },
+  "presets": {
+    "_nota": "Precios de referencia consultados en vivo con estimate_image_cost / estimate_video_cost / generate_3d(get_cost) el 2026-11-21. Vuelve SIEMPRE a cotizar antes de generar: cambian.",
+    "prueba": {
+      "descripcion": "La web más barata posible. Sin vídeos ni 3D. Para probar el kit gastando lo mínimo.",
+      "imagen": { "modelo": "z_image", "parametros": {}, "precio_ref_creditos": 0.15 },
+      "video": null,
+      "modelo3d": null,
+      "galeria_max": 3
+    },
+    "estandar": {
+      "descripcion": "Imágenes con mejor calidad y un modelo 3D protagonista. Sin vídeos.",
+      "imagen": { "modelo": "seedream_5_0_flash", "parametros": { "resolution": "2k" }, "precio_ref_creditos": 0.5 },
+      "video": null,
+      "modelo3d": { "modelo": "tripo_h3_1_image_to_3d", "parametros": { "texture": true, "pbr": false }, "precio_ref_creditos": 9 },
+      "galeria_max": 4
+    },
+    "premium": {
+      "descripcion": "La experiencia completa: imágenes cuidadas, vídeos en bucle en los paneles y modelo 3D.",
+      "imagen": { "modelo": "nano_banana_2", "parametros": { "resolution": "2k" }, "precio_ref_creditos": 2 },
+      "video": { "modelo": "seedance_2_0_mini", "parametros": { "duration": 5 }, "precio_ref_creditos": 5, "max_clips": 4 },
+      "modelo3d": { "modelo": "tripo_h3_1_image_to_3d", "parametros": { "texture": true, "pbr": true, "texture_quality": "detailed" }, "precio_ref_creditos": 9 },
+      "galeria_max": 4
+    }
+  }
+}

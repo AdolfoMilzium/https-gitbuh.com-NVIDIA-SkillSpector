@@ -1,0 +1,41 @@
+{
+  "language": "spanish",
+  "permissions": {
+    "allow": [
+      "Bash(npm run preflight*)",
+      "Bash(npm run extraer*)",
+      "Bash(npm run validar*)",
+      "Bash(npm run dev*)",
+      "Bash(npm run demo*)",
+      "Bash(npm run construir*)",
+      "Bash(npm run ver*)",
+      "Bash(npm run capturas*)",
+      "Bash(npm run descargar*)",
+      "Bash(npm run empaquetar*)",
+      "Bash(npm install)",
+      "Bash(node scripts/*)",
+      "mcp__higgsfield__balance",
+      "mcp__higgsfield__models_explore",
+      "mcp__higgsfield__estimate_image_cost",
+      "mcp__higgsfield__estimate_video_cost",
+      "mcp__higgsfield__show_plans_and_credits",
+      "mcp__higgsfield__list_projects",
+      "mcp__higgsfield__get_project",
+      "mcp__higgsfield__list_project_assets",
+      "mcp__higgsfield__show_generations",
+      "mcp__higgsfield__show_generation_by_ids",
+      "mcp__higgsfield__jobs_wait",
+      "mcp__higgsfield__get_preferences",
+      "mcp__higgsfield__transactions"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          { "type": "command", "command": "node scripts/preflight.mjs --hook" }
+        ]
+      }
+    ]
+  }
+}

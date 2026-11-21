@@ -1,0 +1,9 @@
+node_modules/
+proyectos/*/.build/
+proyectos/*/dist/
+proyectos/*/capturas/
+proyectos/*/extraccion/
+proyectos/*/*.zip
+.proyecto-actual
+*.log
+.DS_Store
