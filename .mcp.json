@@ -7,6 +7,13 @@
     "hostinger": {
       "type": "http",
       "url": "https://mcp.hostinger.com"
+    },
+    "coverr": {
+      "type": "http",
+      "url": "https://mcp.coverr.co/mcp",
+      "headers": {
+        "x-coverr-api-key": "${COVERR_API_KEY:-}"
+      }
     }
   }
 }

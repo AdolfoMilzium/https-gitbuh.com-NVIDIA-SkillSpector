@@ -26,14 +26,24 @@
       "mcp__higgsfield__show_generation_by_ids",
       "mcp__higgsfield__jobs_wait",
       "mcp__higgsfield__get_preferences",
-      "mcp__higgsfield__transactions"
+      "mcp__higgsfield__transactions",
+      "mcp__coverr__get_account_status",
+      "mcp__coverr__list_ai_models",
+      "mcp__coverr__get_ai_model",
+      "mcp__coverr__get_image_generation",
+      "mcp__coverr__get_video_generation",
+      "mcp__coverr__wait_image_generation",
+      "mcp__coverr__wait_video_generation"
     ]
   },
   "hooks": {
     "SessionStart": [
       {
         "hooks": [
-          { "type": "command", "command": "node scripts/preflight.mjs --hook" }
+          {
+            "type": "command",
+            "command": "node scripts/preflight.mjs --hook"
+          }
         ]
       }
     ]

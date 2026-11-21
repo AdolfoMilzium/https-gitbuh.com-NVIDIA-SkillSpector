@@ -1,6 +1,6 @@
 ---
 name: crear-web
-description: Orquesta todo el proceso: lee la web pública de una empresa y la convierte en una web inmersiva 3D con túnel (Higgsfield para lo visual). Úsala cuando el usuario escriba /crear-web <url> o pida convertir la web de una empresa en una experiencia 3D.
+description: Orquesta todo el proceso: lee la web pública de una empresa y la convierte en una web inmersiva 3D con túnel (Higgsfield, o Coverr como alternativa, para lo visual). Úsala cuando el usuario escriba /crear-web <url> o pida convertir la web de una empresa en una experiencia 3D.
 argument-hint: <url de la empresa>
 ---
 
@@ -8,9 +8,9 @@ argument-hint: <url de la empresa>
 
 Eres el director del proceso. Habla en español sencillo. **No gastes créditos ni publiques nada sin un sí explícito del usuario.**
 
-## Fase 0 · Puerta de Higgsfield (obligatoria)
+## Fase 0 · Puerta del proveedor visual (obligatoria)
 
-Llama a `balance` del MCP de Higgsfield **antes de nada**. Si no responde, detén todo y sigue la guía de la skill `empezar` (paso 1): enlace de alta desde `marca.config.json → afiliados.higgsfield` mostrado tal cual, luego `/mcp` → higgsfield → Authenticate, y volver a llamar a `balance`. Hasta que responda no se avanza.
+Llama a `balance` del MCP de Higgsfield **antes de nada**. Si no responde, prueba `get_account_status` de Coverr (alternativa: no genera 3D). Si ninguno responde, detén todo y sigue la guía de `docs/proveedores.md` y de la skill `empezar` (paso 1): enlace de alta de Higgsfield desde `marca.config.json → afiliados.higgsfield` mostrado tal cual, luego `/mcp` → higgsfield → Authenticate, y volver a llamar a `balance` (o los pasos de Coverr). Hasta que un proveedor responda no se avanza. Guarda `estado.json → proveedor`.
 Después: `npm run preflight`. Si el creador está vacío en `marca.config.json`, lanza antes la skill `empezar`.
 
 ## Retomar
@@ -30,10 +30,10 @@ Cada empresa tiene `proyectos/<slug>/estado.json` con su `fase` (`extraccion`, `
 
 ## Reglas que no se rompen
 
-- **Sin Higgsfield conectado no se hace nada.**
-- Todo lo visual sale de Higgsfield. Nada de bancos de imágenes, otros generadores de IA ni fotos de la web de la empresa (salvo permiso expreso del dueño). El **logo real** se coloca en la web, jamás se genera.
+- **Sin un proveedor visual conectado (Higgsfield o Coverr) no se hace nada.**
+- Todo lo visual sale del proveedor elegido (Higgsfield o Coverr, generación con IA). Nada de bancos de imágenes (tampoco los vídeos de stock de Coverr), otros generadores de IA ni fotos de la web de la empresa (salvo permiso expreso del dueño). El **logo real** se coloca en la web, jamás se genera.
 - Textos **reescritos**, sin datos inventados. Cifras y citas solo si existen en la web de la empresa (con su `origen`).
-- Prompts a Higgsfield en inglés, sin marcas, logos, texto ni caras reconocibles.
-- Guarda cada `job_id` en `estado.json` nada más lanzarlo; nunca pagues dos veces al reintentar.
+- Prompts al proveedor en inglés, sin marcas, logos, texto ni caras reconocibles.
+- Guarda cada `job_id` (o `taskId` de Coverr) en `estado.json` nada más lanzarlo; nunca pagues dos veces al reintentar.
 - Las webs llevan `noindex` y el aviso «concepto no oficial · imágenes generadas con IA».
 - Los enlaces de afiliado (Higgsfield, Hostinger) salen de `marca.config.json`; el aviso «#publicidad» se muestra una vez por flujo.

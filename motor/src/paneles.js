@@ -19,7 +19,7 @@ void main(){
   if (uHas > .5) {
     c = texture2D(uMap, uv).rgb;
   } else {
-    // Vista previa: cristal con rejilla y barrido de luz (aquí irá la imagen de Higgsfield)
+    // Vista previa: cristal con rejilla y barrido de luz (aquí irá la imagen generada)
     float n = vn(uv*vec2(4.,2.5) + uTime*.12 + uSeed) * .6 + vn(uv*9. - uTime*.07) * .4;
     c = mix(uBg*.9 + uB*.12, uA*.5, n*.75);
     vec2 g = abs(fract(uv*vec2(16.,9.)) - .5);
@@ -174,7 +174,7 @@ export function crearPaneles(datos, ruta, grupo, gestor) {
   return { paneles, colocar, actualizar, activar, videos };
 }
 
-/** Objeto 3D protagonista (GLB de Higgsfield) o, en la vista previa, una forma de muestra. */
+/** Objeto 3D protagonista (GLB generado) o, en la vista previa, una forma de muestra. */
 export function crearHeroes(datos, ruta, grupo, gestor) {
   const lista = [];
   const col = datos.marca.colores;

@@ -8,6 +8,7 @@ export const rutaEstado = (slug) => path.join(dirProyecto(slug), 'estado.json');
 export function estadoInicial(slug, url = null) {
   return {
     slug, url_origen: url, fase: 'extraccion', creado: new Date().toISOString(),
+    proveedor: null, // 'higgsfield' | 'coverr' (lo fija la puerta de /empezar y /crear-web)
     higgsfield: { project_id: null, folder_id: null, preset: 'prueba' },
     aprobaciones: { control1: false, control2: false },
     visuales: [],

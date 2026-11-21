@@ -21,27 +21,133 @@
     "hostinger_nota_plan": "El plan Premium solo admite 3 webs; para prospectar con varias empresas conviene Unlimited."
   },
   "presets": {
-    "_nota": "Precios de referencia consultados en vivo con estimate_image_cost / estimate_video_cost / generate_3d(get_cost) el 2026-11-21. Vuelve SIEMPRE a cotizar antes de generar: cambian.",
+    "_nota": "Precios de referencia consultados en vivo el 2026-11-21 (Higgsfield con estimate_image_cost / estimate_video_cost / generate_3d get_cost; Coverr desde list_ai_models). Vuelve SIEMPRE a cotizar antes de generar: cambian. Los créditos de cada proveedor son monedas distintas.",
     "prueba": {
       "descripcion": "La web más barata posible. Sin vídeos ni 3D. Para probar el kit gastando lo mínimo.",
-      "imagen": { "modelo": "z_image", "parametros": {}, "precio_ref_creditos": 0.15 },
-      "video": null,
-      "modelo3d": null,
-      "galeria_max": 3
+      "galeria_max": 3,
+      "higgsfield": {
+        "imagen": {
+          "modelo": "z_image",
+          "parametros": {},
+          "precio_ref_creditos": 0.15
+        },
+        "video": null,
+        "modelo3d": null
+      },
+      "coverr": {
+        "imagen": {
+          "modelo": "seedream-5-0-flash",
+          "parametros": {
+            "aspectRatio_16_9": "landscape_16_9",
+            "aspectRatio_1_1": "square",
+            "sampleCount": 1
+          },
+          "precio_ref_creditos": 200
+        },
+        "video": null,
+        "modelo3d": null
+      }
     },
     "estandar": {
-      "descripcion": "Imágenes con mejor calidad y un modelo 3D protagonista. Sin vídeos.",
-      "imagen": { "modelo": "seedream_5_0_flash", "parametros": { "resolution": "2k" }, "precio_ref_creditos": 0.5 },
-      "video": null,
-      "modelo3d": { "modelo": "tripo_h3_1_image_to_3d", "parametros": { "texture": true, "pbr": false }, "precio_ref_creditos": 9 },
-      "galeria_max": 4
+      "descripcion": "Imágenes con mejor calidad. Con Higgsfield incluye además un modelo 3D protagonista (Coverr no genera 3D). Sin vídeos.",
+      "galeria_max": 4,
+      "higgsfield": {
+        "imagen": {
+          "modelo": "seedream_5_0_flash",
+          "parametros": {
+            "resolution": "2k"
+          },
+          "precio_ref_creditos": 0.5
+        },
+        "video": null,
+        "modelo3d": {
+          "modelo": "tripo_h3_1_image_to_3d",
+          "parametros": {
+            "texture": true,
+            "pbr": false
+          },
+          "precio_ref_creditos": 9
+        }
+      },
+      "coverr": {
+        "imagen": {
+          "modelo": "kling-image-o3",
+          "parametros": {
+            "resolution": "2K",
+            "aspectRatio_16_9": "16:9",
+            "aspectRatio_1_1": "1:1",
+            "sampleCount": 1
+          },
+          "precio_ref_creditos": 400
+        },
+        "video": null,
+        "modelo3d": null
+      }
     },
     "premium": {
-      "descripcion": "La experiencia completa: imágenes cuidadas, vídeos en bucle en los paneles y modelo 3D.",
-      "imagen": { "modelo": "nano_banana_2", "parametros": { "resolution": "2k" }, "precio_ref_creditos": 2 },
-      "video": { "modelo": "seedance_2_0_mini", "parametros": { "duration": 5 }, "precio_ref_creditos": 5, "max_clips": 4 },
-      "modelo3d": { "modelo": "tripo_h3_1_image_to_3d", "parametros": { "texture": true, "pbr": true, "texture_quality": "detailed" }, "precio_ref_creditos": 9 },
-      "galeria_max": 4
+      "descripcion": "La experiencia completa: imágenes cuidadas y vídeos en bucle en los paneles (y modelo 3D si el proveedor es Higgsfield).",
+      "galeria_max": 4,
+      "higgsfield": {
+        "imagen": {
+          "modelo": "nano_banana_2",
+          "parametros": {
+            "resolution": "2k"
+          },
+          "precio_ref_creditos": 2
+        },
+        "video": {
+          "modelo": "seedance_2_0_mini",
+          "parametros": {
+            "duration": 5
+          },
+          "precio_ref_creditos": 5,
+          "max_clips": 4
+        },
+        "modelo3d": {
+          "modelo": "tripo_h3_1_image_to_3d",
+          "parametros": {
+            "texture": true,
+            "pbr": true,
+            "texture_quality": "detailed"
+          },
+          "precio_ref_creditos": 9
+        }
+      },
+      "coverr": {
+        "imagen": {
+          "modelo": "kling-image-o3",
+          "parametros": {
+            "resolution": "2K",
+            "aspectRatio_16_9": "16:9",
+            "aspectRatio_1_1": "1:1",
+            "sampleCount": 1
+          },
+          "precio_ref_creditos": 400
+        },
+        "video": {
+          "modelo": "grok-imagine-video-1.5-lite",
+          "parametros": {
+            "mode": "image-to-video",
+            "duration": 5,
+            "resolution": "720p"
+          },
+          "precio_ref_creditos": 1000,
+          "max_clips": 4,
+          "nota_precio": "150 por segundo + 50 por segundo en 720p ≈ 1000 por clip de 5 s si se cobra por segundo; alternativa más vistosa y más cara: seedance-2-0-mini (≈ 500/s)"
+        },
+        "modelo3d": null
+      }
+    }
+  },
+  "proveedores": {
+    "_nota": "Higgsfield es el proveedor principal. Coverr es la alternativa (sin modelo 3D). Hace falta tener conectado al menos uno; el elegido se guarda en estado.json → proveedor.",
+    "principal": "higgsfield",
+    "coverr": {
+      "web": "https://coverr.co",
+      "mcp": "https://mcp.coverr.co/mcp",
+      "docs_mcp": "https://api.coverr.co/docs/mcp/",
+      "variable_clave": "COVERR_API_KEY",
+      "nota": "Enlace normal (no es de afiliado). Para generar hace falta una suscripción de Coverr con créditos. Los créditos de Coverr NO equivalen a los de Higgsfield."
     }
   }
 }

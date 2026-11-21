@@ -6,9 +6,11 @@ Todo se maneja desde Claude Code, en español, sin tocar código. Escribes `/cre
 
 ---
 
-## 1. Requisito obligatorio: Higgsfield
+## 1. Requisito obligatorio: un proveedor visual (Higgsfield, o Coverr como alternativa)
 
-> **Este kit NO funciona sin Higgsfield.** De Higgsfield sale TODO lo visual: la textura de las paredes del túnel, las imágenes de cada capítulo y de la galería, los vídeos en bucle, el modelo 3D protagonista y la imagen para compartir el enlace. El código solo monta la escena.
+> **Este kit NO funciona sin un proveedor de IA generativa conectado.** De él sale TODO lo visual: la textura de las paredes del túnel, las imágenes de cada capítulo y de la galería, los vídeos en bucle, el modelo 3D protagonista y la imagen para compartir el enlace. El código solo monta la escena.
+
+### Opción recomendada: Higgsfield
 
 1. **Crea tu cuenta (gratis)** con este enlace, en el mismo navegador y sin cerrar la pestaña:
    **https://higgsfield.ai/s/higgsfield-mcp-general-yt-juanpe-divisual-gKRvLj**
@@ -17,13 +19,25 @@ Todo se maneja desde Claude Code, en español, sin tocar código. Escribes `/cre
 
 **Créditos gratis.** Higgsfield ofrece a veces pruebas gratuitas del MCP. El kit te enseña la oferta *real* que haya en ese momento (no se promete ninguna cantidad). Ojo: las pruebas **se renuevan solas como plan de pago si no se cancelan** y suelen pedir tarjeta; en Claude Code puedes decir «cancelar renovación».
 
+### Alternativa: Coverr ([coverr.co](https://coverr.co))
+
+Sirve para generar imágenes y vídeos, **pero no genera modelos 3D**: con Coverr la portada lleva un panel de imagen en lugar del objeto 3D flotante (para ese objeto necesitas Higgsfield).
+
+1. Cuenta en [coverr.co](https://coverr.co) con una **suscripción que incluya créditos** (sin ella no se puede generar).
+2. Saca tu **clave de API** en tu cuenta (guía: [api.coverr.co/docs/mcp](https://api.coverr.co/docs/mcp/)).
+3. En una terminal normal (no pegues la clave en el chat), ejecuta una vez:
+   `claude mcp add --transport http --scope local coverr https://mcp.coverr.co/mcp --header "x-coverr-api-key: PEGA_AQUÍ_TU_CLAVE"` y reinicia Claude Code.
+4. El kit lo comprueba con `get_account_status`. Si Higgsfield no responde pero Coverr sí, te pregunta con cuál seguir.
+
+Solo se usa la **generación con IA** de Coverr (no su biblioteca de vídeos de stock), para que el aviso «imágenes generadas con IA» de la web siga siendo cierto. Los créditos de Coverr y de Higgsfield **no equivalen**. Más detalle: [`docs/proveedores.md`](docs/proveedores.md).
+
 > **#publicidad** — Los enlaces de Higgsfield y Hostinger de este kit son enlaces de afiliado: el creador del kit puede recibir una comisión si te das de alta a través de ellos, sin coste extra para ti.
 
 ## 2. Lo que necesitas
 
 | Qué | Para qué | Dónde |
 |---|---|---|
-| **Higgsfield** (cuenta + créditos) | Todo lo visual | enlace de arriba |
+| **Higgsfield** (cuenta + créditos) **o Coverr** (suscripción + clave de API) | Todo lo visual | enlaces de arriba |
 | **Claude Code** | Manejar el kit en español | claude.com/claude-code |
 | **Node.js 18.18 o superior** | Motor y scripts | nodejs.org |
 | **Git** | Descargar el kit | git-scm.com |
@@ -68,6 +82,16 @@ Cada empresa tiene su carpeta `proyectos/<nombre>/` con un `estado.json`, así q
 | **premium** | + vídeos en bucle en los paneles | `nano_banana_2` 2k (2) + vídeo `seedance_2_0_mini` 5 s (≈ 5 por clip) + 3D | ≈ 55 créditos con 4 vídeos |
 
 \* ≈ 1 textura + 6 imágenes de capítulo + 3 de galería + imagen social (+ imagen del objeto 3D). Los presets se editan en `marca.config.json`.
+
+**Coverr** — precios de lista consultados el 21-11-2026, en créditos de Coverr (no hay cotizador: el kit los calcula con la ficha de cada modelo y calibra con la primera imagen):
+
+| Preset | Imagen | Por imagen | Ejemplo web de 7 capítulos* |
+|---|---|---|---|
+| **prueba** | `seedream-5-0-flash` | 200 | ≈ 2.200 créditos |
+| **estándar** | `kling-image-o3` 2K | 400 | ≈ 4.400 créditos |
+| **premium** | `kling-image-o3` 2K + vídeo `grok-imagine-video-1.5-lite` 720p | 400 + ≈ 1.000 por clip de 5 s (el vídeo se cobra por segundo) | ≈ 8.400 créditos con 4 clips |
+
+Sin modelo 3D en ningún preset de Coverr.
 
 **Hostinger** — recomendado el plan **Unlimited** (el plan Premium solo admite 3 webs y aquí se crea una web por empresa). Ruta: *Productos → Hosting → Hosting web*. Cada propuesta se publica en un subdominio temporal gratuito.
 

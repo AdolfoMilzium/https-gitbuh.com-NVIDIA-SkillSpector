@@ -107,7 +107,7 @@ export async function validarWeb(d, { dirAssets, slug, red = true } = {}) {
     const mira = (p) => { if (p && !existe(dir(p))) faltan.push(p); };
     mira(es.textura); mira(d.meta?.imagen_social); mira(d.marca?.logo?.archivo);
     caps.forEach((c) => { mira(c.imagen); mira(c.video); mira(c.modelo3d?.archivo); (c.galeria ?? []).forEach((g) => mira(g.imagen)); });
-    if (faltan.length) A(`Faltan ${faltan.length} recurso(s) de Higgsfield (${faltan.slice(0, 4).join(', ')}${faltan.length > 4 ? '…' : ''}). La web se construirá como VISTA PREVIA SIN IMÁGENES.`);
+    if (faltan.length) A(`Faltan ${faltan.length} recurso(s) visual(es) del proveedor de IA (${faltan.slice(0, 4).join(', ')}${faltan.length > 4 ? '…' : ''}). La web se construirá como VISTA PREVIA SIN IMÁGENES.`);
   }
 
   // --- meta ---
