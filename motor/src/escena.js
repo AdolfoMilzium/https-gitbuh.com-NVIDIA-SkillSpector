@@ -5,6 +5,7 @@ import { crearParedes } from './paredes.js';
 import { crearAnillos, crearParticulas, crearLineasVelocidad, crearLuzFinal } from './ambiente.js';
 import { crearPaneles, crearHeroes, FOV } from './paneles.js';
 import { crearPost } from './post.js';
+import { crearFondoVideo } from './fondo-video.js';
 import { clamp, suave, amortiguar, luminancia, esMovil } from './utilidades.js';
 
 /**
@@ -35,22 +36,31 @@ export async function crearMundo(datos, { canvas, reducido, captura, onProgreso 
   gestor.onProgress = (_u, hechos, total) => onProgreso?.(hechos / Math.max(total, 1));
   const listo = new Promise((res) => { gestor.onLoad = res; setTimeout(res, 7000); });
   let texturaPared = null;
-  if (datos.escenario.textura) {
+  if (datos.escenario.textura && datos.escenario.modo !== 'video') {
     texturaPared = new THREE.TextureLoader(gestor).load(datos.escenario.textura, (t) => {
       t.colorSpace = THREE.SRGBColorSpace; t.wrapS = t.wrapT = THREE.RepeatWrapping; t.anisotropy = 4;
-    }, undefined, () => { paredes.uniformes.uTexMix.value = 0; });
+    }, undefined, () => { if (paredes) paredes.uniformes.uTexMix.value = 0; });
   }
 
-  const paredes = crearParedes(datos, ruta, texturaPared);
-  escena.add(paredes.malla);
-  const anillos = crearAnillos(datos, ruta, kLuz); escena.add(anillos.mesh);
+  // Modo «video»: el clip es el túnel (sin paredes, anillos ni líneas de velocidad). Modo «3d»: túnel en tiempo real.
+  const modoVideo = datos.escenario.modo === 'video' && !!datos.escenario.video_tunel;
+  let paredes = null, anillos = null, lineas = null, fondoVideo = null;
+  if (modoVideo) { fondoVideo = crearFondoVideo(datos, gestor, reducido); escena.add(fondoVideo.malla); }
+  else {
+    paredes = crearParedes(datos, ruta, texturaPared); escena.add(paredes.malla);
+    anillos = crearAnillos(datos, ruta, kLuz); escena.add(anillos.mesh);
+    lineas = crearLineasVelocidad(datos, movil); camara.add(lineas.lineas);
+  }
   const particulas = crearParticulas(datos, ruta, movil); escena.add(particulas.puntos);
-  const lineas = crearLineasVelocidad(datos, movil); camara.add(lineas.lineas);
-  const luzFinal = crearLuzFinal(datos, ruta); escena.add(luzFinal.malla);
+  const luzFinal = crearLuzFinal(datos, ruta); luzFinal.malla.visible = !modoVideo; escena.add(luzFinal.malla);
 
   const grupoPaneles = new THREE.Group(); escena.add(grupoPaneles);
-  const paneles = crearPaneles(datos, ruta, grupoPaneles, gestor);
-  const heroes = crearHeroes(datos, ruta, grupoPaneles, gestor);
+  // En modo vídeo el clip es el visual: no se montan paneles ni objeto 3D (caerían sobre el túnel desplazado)
+  const datosPaneles = modoVideo
+    ? { ...datos, escenario: { ...datos.escenario, vista_previa: false, modelo3d_demo: false }, capitulos: datos.capitulos.map(({ imagen, video, galeria, modelo3d, ...r }) => ({ ...r, tipo: r.tipo === 'galeria' ? 'texto' : r.tipo })) }
+    : datos;
+  const paneles = crearPaneles(datosPaneles, ruta, grupoPaneles, gestor);
+  const heroes = crearHeroes(datosPaneles, ruta, grupoPaneles, gestor);
 
   // Iluminación para el modelo 3D (las paredes son shaders y no la necesitan)
   const pmrem = new THREE.PMREMGenerator(renderer);
@@ -61,6 +71,7 @@ export async function crearMundo(datos, { canvas, reducido, captura, onProgreso 
 
   const post = crearPost(renderer, escena, camara, datos, { reducido, movil, fijarCalidad: captura });
 
+  const uVideo0 = ruta.scrollAU(0), uVideo1 = ruta.uFinal;
   // ---- estado de cámara ----
   const e = { u: ruta.scrollAU(0), objetivo: ruta.scrollAU(0), vel: 0, recorrido: 0, blur: 0, blurObj: 0, dir: new THREE.Vector2(), cx: 0, cy: 0, mx: 0, my: 0, roll: 0, t: 0 };
   addEventListener('pointermove', (ev) => { e.mx = (ev.clientX / innerWidth - 0.5) * 2; e.my = (ev.clientY / innerHeight - 0.5) * 2; }, { passive: true });
@@ -126,10 +137,11 @@ export async function crearMundo(datos, { canvas, reducido, captura, onProgreso 
     fu.uBlur.value = e.blur * (1 - clamp(vel * 2.5)) * 0.9;
     fu.uDir.value.copy(e.dir); fu.uSpeed.value = vel; fu.uTime.value = e.t % 100;
 
-    paredes.uniformes.uTime.value = e.t; paredes.uniformes.uSpeed.value = vel;
+    if (paredes) { paredes.uniformes.uTime.value = e.t; paredes.uniformes.uSpeed.value = vel; }
+    if (fondoVideo) fondoVideo.actualizar((e.u - uVideo0) / (uVideo1 - uVideo0), e.t, camara.aspect, texto && !texto.vertical ? -texto.lado * 0.2 : 0, inmediato, suave(0.55, 0.97, e.u) * 0.95);
     particulas.uniformes.uTime.value = e.t; particulas.uniformes.uSpeed.value = vel; particulas.uniformes.uPx.value = renderer.getPixelRatio();
-    lineas.uniformes.uOffset.value = e.recorrido * 1.2; lineas.uniformes.uSpeed.value = reducido ? 0 : vel;
-    anillos.actualizar(e.t, vel);
+    if (lineas) { lineas.uniformes.uOffset.value = e.recorrido * 1.2; lineas.uniformes.uSpeed.value = reducido ? 0 : vel; }
+    if (anillos) anillos.actualizar(e.t, vel);
 
     // Luz al final: crece al acercarse pero con tope para no lavar la pantalla
     luzFinal.uniformes.uI.value = suave(0.55, 0.97, e.u) * 0.95;
@@ -144,5 +156,5 @@ export async function crearMundo(datos, { canvas, reducido, captura, onProgreso 
     post.compositor.render(dt);
   }
 
-  return { renderer, escena, camara, ruta, actualizar, redimensionar, listo, estado: e, post, paneles, heroes, movil, luzFinal, paredes };
+  return { renderer, escena, camara, ruta, actualizar, redimensionar, listo, estado: e, post, paneles, heroes, movil, luzFinal, paredes, fondoVideo };
 }

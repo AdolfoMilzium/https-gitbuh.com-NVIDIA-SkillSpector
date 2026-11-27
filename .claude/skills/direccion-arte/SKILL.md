@@ -20,6 +20,9 @@ Entrada: `proyectos/<slug>/empresa.json` (+ capturas). Salida: `proyectos/<slug>
 
 Elige también `semilla` (entero; cambia el recorrido — que sea distinto en cada empresa) y escribe la **metáfora** en una frase concreta ligada a lo que hace la empresa («una panadería vista desde dentro del horno: brasas y vapor»). Esa frase guía TODOS los prompts.
 
+### Si el usuario aporta un clip de túnel
+Usa el **modo vídeo**: `npm run video -- <slug> <clip>` (lo optimiza y deja `escenario.modo = "video"`). Entonces no se generan imágenes, galería ni 3D (no se muestran): el plan de visuales queda vacío y el coste es 0 (como mucho, la imagen social). Los colores de la marca pueden salir de los del clip que propone el script o forzarse con `escenario.video_tinte` (0–1). Sin clip, el túnel es siempre 3D en tiempo real.
+
 ## 2. Paleta y tipografías
 
 - Parte de los colores de la marca (`empresa.json → marca`). Fondo **oscuro** (túnel); texto con contraste ≥ 4.5:1; acento = el color más característico de la marca. Un acento muy luminoso (amarillo, cian) es válido: el motor ajusta bloom y luces solo.

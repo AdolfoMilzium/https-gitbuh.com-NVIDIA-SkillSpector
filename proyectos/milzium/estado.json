@@ -1,0 +1,24 @@
+{
+  "slug": "milzium",
+  "url_origen": null,
+  "fase": "construccion",
+  "nota": "Web inmersiva con el clip de túnel de vídeo aportado por el usuario (modo video). Textos tomados del código de su página; sin planes ni precios (no estaban en lo pegado).",
+  "proveedor": null,
+  "higgsfield": {
+    "project_id": null,
+    "folder_id": null,
+    "preset": "prueba"
+  },
+  "aprobaciones": {
+    "control1": true,
+    "control2": false
+  },
+  "visuales": [],
+  "coste_total_estimado": 0,
+  "publicacion": {
+    "sitio": null,
+    "dominio": null,
+    "url": null
+  },
+  "ultima_construccion": "2026-11-27T04:27:20.829Z"
+}

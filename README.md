@@ -110,17 +110,27 @@ Alta (si aún no tienes hosting): **https://www.hostinger.com/juanpe** → *Prod
 - Texto en HTML semántico (SEO, accesibilidad, legible sin JavaScript), versión móvil con el texto abajo, calidad adaptativa y respeto de «reducir movimiento».
 - Salida estática para hosting compartido: `.htaccess` (tipos MIME incluidos `.glb` y `.mp4`, caché, `X-Robots-Tag: noindex`), `meta robots noindex` y aviso visible *«concepto no oficial · imágenes generadas con IA»*.
 
-## 8. Reglas legales y de contenido
+## 8. Modo «túnel de vídeo» (con tu propio clip)
+
+Por defecto el túnel es 3D en tiempo real. Si ya tienes un clip de túnel (por ejemplo uno generado con Higgsfield o Coverr, o uno tuyo), la web puede usarlo como túnel: **el scroll recorre el clip hacia delante y hacia atrás**, se frena en cada capítulo (con una ligera «respiración» para que no quede congelado) y mantiene el texto animado, el menú lateral, el desenfoque del lado del texto, el grano y la luz final.
+
+```bash
+npm run video -- <proyecto> <ruta-del-clip.mp4>      # opcional: --tinte=0.7 (0 = colores del clip, 1 = colores de la marca)
+```
+
+Lo optimiza (sin audio, 24 fps, MP4 + WebM de reserva, ~5 MB), saca un póster, te propone los colores del clip y deja `escenario.modo = "video"` en `web.json`. Mejor con clips **verticales o cuadrados** (en pantalla apaisada el túnel se muestra entero y se desplaza hacia el lado libre de texto; en móvil ocupa toda la pantalla). En este modo no se usan imágenes, galería ni objeto 3D, así que **no hay que generar nada con IA**. Ejemplo incluido: `proyectos/milzium` (`npm run dev -- milzium`).
+
+## 9. Reglas legales y de contenido
 
 - **Email comercial no solicitado:** en España (LSSI, art. 21) y Andorra (Llei 20/2014, art. 19) está prohibido **también a empresas**. `/contactar` prepara un guion de llamada, una carta A4 con QR y un email para enviar **solo después de tener permiso** (con identificación, opción de baja y, en Andorra, «Comunicació comercial»). **El kit nunca envía emails.**
 - Textos **reescritos y sin datos inventados**: cifras y citas solo si existen en la web de la empresa.
 - Las fotos de la web de la empresa **no se reutilizan** (salvo permiso expreso del dueño); lo visual sale de Higgsfield. El **logo real** se coloca, nunca se genera.
 - La lectura de webs respeta `robots.txt`.
 
-## 9. Comandos técnicos
+## 10. Comandos técnicos
 
-`npm run extraer -- <url>` · `validar` · `dev` · `construir` · `capturas` · `ver` · `descargar` · `empaquetar` · `contactar` · `preflight`, todos con `-- <nombre-del-proyecto>`. Cómo funciona el motor: [`docs/motor.md`](docs/motor.md).
+`npm run extraer -- <url>` · `validar` · `dev` · `construir` · `capturas` · `ver` · `descargar` · `video` · `empaquetar` · `contactar` · `preflight`, todos con `-- <nombre-del-proyecto>`. Cómo funciona el motor: [`docs/motor.md`](docs/motor.md).
 
-## 10. Personalizar (marca blanca)
+## 11. Personalizar (marca blanca)
 
 Todo vive en `marca.config.json`: tu nombre como creador (lo rellena `/empezar`), los textos de aviso y créditos y los presets de generación. **No cambies los enlaces de `afiliados`.**

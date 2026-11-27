@@ -48,7 +48,7 @@ export function crearPost(renderer, escena, camara, datos, opciones) {
   const compositor = new EffectComposer(renderer, objetivo);
   compositor.addPass(new RenderPass(escena, camara));
   // Un acento muy luminoso (amarillo, cian) satura el bloom: menos fuerza y umbral más alto.
-  const fuerza = lerp(0.85, 0.32, Math.min(1, lum * 1.15)) * (datos.escenario.bloom ?? 1);
+  const fuerza = lerp(0.85, 0.32, Math.min(1, lum * 1.15)) * (datos.escenario.bloom ?? (datos.escenario.modo === 'video' ? 0.45 : 1));
   const umbral = lerp(0.82, 1.15, Math.min(1, lum * 1.15));
   const bloom = new UnrealBloomPass(new THREE.Vector2(256, 256), fuerza, 0.55, umbral);
   compositor.addPass(bloom);

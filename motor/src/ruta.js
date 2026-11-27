@@ -10,6 +10,7 @@ export const ARQUETIPOS = {
   organico:       { ampX: 46, ampY: 22, freq: 0.42, radio: 12.5, anillos: { sep: 30, grosor: 0.14, k: 1.0 }, particulas: 1.4, niebla: 0.013, celda: 9 },
   arquitectonico: { ampX: 10, ampY: 3,  freq: 0.3,  radio: 11,   anillos: { sep: 12, grosor: 0.22, k: 1.2 }, particulas: 0.5, niebla: 0.009, celda: 6 },
   industrial:     { ampX: 20, ampY: 6,  freq: 0.5,  radio: 10.5, anillos: { sep: 14, grosor: 0.18, k: 1.6 }, particulas: 0.7, niebla: 0.012, celda: 6 },
+  video:          { ampX: 0,  ampY: 0,  freq: 0.3,  radio: 11,   anillos: { sep: 30, grosor: 0.05, k: 1.0 }, particulas: 0.35, niebla: 0.006, celda: 8 },
   cosmico:        { ampX: 38, ampY: 34, freq: 0.38, radio: 13,   anillos: { sep: 42, grosor: 0.05, k: 2.0 }, particulas: 2.2, niebla: 0.006, celda: 10 },
 };
 export const IDX_ARQ = { neon: 0, organico: 1, arquitectonico: 2, industrial: 3, cosmico: 4 };
@@ -22,7 +23,7 @@ const LARGO_POR_CAPITULO = 78;
  * la cámara se frena en cada capítulo (meseta) para que dé tiempo a leer.
  */
 export function crearRuta(datos) {
-  const arq = ARQUETIPOS[datos.escenario.arquetipo] ?? ARQUETIPOS.neon;
+  const arq = datos.escenario.modo === 'video' ? ARQUETIPOS.video : (ARQUETIPOS[datos.escenario.arquetipo] ?? ARQUETIPOS.neon);
   const azar = rng(datos.escenario.semilla ?? 1);
   const n = datos.capitulos.length;
   const largoObjetivo = LARGO_POR_CAPITULO * n + 140;

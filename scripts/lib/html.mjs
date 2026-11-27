@@ -32,6 +32,10 @@ export function normalizarRecursos(d, existeAsset) {
   const x = JSON.parse(JSON.stringify(d));
   let faltan = 0;
   const ok = (p) => { if (!p) return false; if (existeAsset(p)) return true; faltan++; return false; };
+  if (x.escenario.modo === 'video') {
+    if (!ok(x.escenario.video_tunel)) { x.escenario.modo = '3d'; delete x.escenario.video_tunel; } // sin clip: túnel 3D en tiempo real
+    else { for (const k of ['video_tunel_webm', 'video_tunel_poster']) if (x.escenario[k] && !ok(x.escenario[k])) delete x.escenario[k]; }
+  }
   if (x.escenario.textura && !ok(x.escenario.textura)) delete x.escenario.textura;
   if (x.meta?.imagen_social && !ok(x.meta.imagen_social)) delete x.meta.imagen_social;
   if (x.marca.logo) { for (const k of ['archivo', 'claro']) if (x.marca.logo[k] && !ok(x.marca.logo[k])) delete x.marca.logo[k]; }
@@ -41,7 +45,7 @@ export function normalizarRecursos(d, existeAsset) {
     if (c.modelo3d?.archivo && !ok(c.modelo3d.archivo)) delete c.modelo3d;
     if (c.galeria) { c.galeria = c.galeria.filter((g) => ok(g.imagen) || !g.imagen).map((g) => (g.imagen ? g : { ...g })); }
   }
-  const hayImagenes = !!x.escenario.textura || x.capitulos.some((c) => c.imagen || c.video || c.galeria?.some((g) => g.imagen));
+  const hayImagenes = !!x.escenario.textura || (x.escenario.modo === 'video' && !!x.escenario.video_tunel) || x.capitulos.some((c) => c.imagen || c.video || c.galeria?.some((g) => g.imagen));
   x.escenario.vista_previa = faltan > 0 || !hayImagenes || !!x.escenario.vista_previa_forzada;
   if (x.escenario.vista_previa && x.capitulos[0]?.tipo === 'portada' && !x.capitulos[0].modelo3d) x.escenario.modelo3d_demo = true;
   return x;
@@ -99,7 +103,7 @@ export function generarHtml(d, { marca, fuentesCss, enlaceFuentes, urlPublica })
 ${meta.imagen_social ? `<meta property="og:image" content="${esc(abs(meta.imagen_social))}">\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:image" content="${esc(abs(meta.imagen_social))}">` : ''}
 ${urlPublica ? `<meta property="og:url" content="${esc(urlPublica)}">` : ''}
 ${enlaceFuentes ? `<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="${esc(enlaceFuentes)}">` : ''}
-<style id="marca">:root{${vars}}\n${fuentesCss ?? ''}</style>
+<style id="marca">:root{${vars}}\n${fuentesCss ?? ''}${d.escenario.video_tunel_poster ? `\nhtml:not(.js) body{background:${esc(col.fondo)} url(${esc(d.escenario.video_tunel_poster)}) center/cover fixed}html:not(.js) .capitulo__caja{background:color-mix(in srgb,${esc(col.fondo)} 78%,transparent);padding:1.4rem;border-radius:14px}` : ''}</style>
 <script type="application/ld+json">${JSON.stringify(jsonld).replace(/</g, '\\u003c')}</script>
 </head>
 <body>

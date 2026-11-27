@@ -49,6 +49,16 @@ export async function validarWeb(d, { dirAssets, slug, red = true } = {}) {
 
   // --- escenario ---
   const es = d.escenario ?? {};
+  if (es.modo !== undefined && !['3d', 'video'].includes(es.modo)) E('«escenario.modo» debe ser "3d" (túnel en tiempo real) o "video" (túnel basado en un clip).');
+  if (es.modo === 'video') {
+    if (!es.video_tunel) E('Con «escenario.modo» = "video" hace falta «escenario.video_tunel» (por ejemplo "assets/tunel.mp4"). Prepáralo con: npm run video -- <proyecto> <clip>.');
+    else if (!es.video_tunel.startsWith('assets/')) E('«escenario.video_tunel» debe empezar por «assets/».');
+    if (es.video_tinte !== undefined && !(es.video_tinte >= 0 && es.video_tinte <= 1)) E('«escenario.video_tinte» debe estar entre 0 (colores originales del clip) y 1 (colores de la marca).');
+  }
+  if (es.modo === 'video') {
+    const conMedios = (d.capitulos ?? []).filter((c) => c.imagen || c.video || c.modelo3d || c.galeria?.some((g) => g.imagen) || c.tipo === 'galeria');
+    if (conMedios.length) A(`En modo vídeo el clip es el visual: no se muestran los paneles de imagen, vídeo, galería ni el objeto 3D (capítulos: ${conMedios.map((c) => c.id).join(', ')}). Se quedan solo en el HTML sin JavaScript.`);
+  }
   if (!ARQUETIPOS.includes(es.arquetipo)) E(`«escenario.arquetipo» debe ser uno de: ${ARQUETIPOS.join(', ')}.`);
   if (!Number.isInteger(es.semilla)) E('«escenario.semilla» debe ser un número entero (cambia el recorrido del túnel).');
   if (!es.metafora) A('Falta «escenario.metafora» (la idea visual del túnel). Ayuda a mantener coherencia en las imágenes.');
@@ -105,7 +115,7 @@ export async function validarWeb(d, { dirAssets, slug, red = true } = {}) {
   if (dirAssets) {
     const faltan = [];
     const mira = (p) => { if (p && !existe(dir(p))) faltan.push(p); };
-    mira(es.textura); mira(d.meta?.imagen_social); mira(d.marca?.logo?.archivo);
+    mira(es.textura); mira(d.meta?.imagen_social); if (es.modo === 'video') { mira(es.video_tunel); } mira(d.marca?.logo?.archivo);
     caps.forEach((c) => { mira(c.imagen); mira(c.video); mira(c.modelo3d?.archivo); (c.galeria ?? []).forEach((g) => mira(g.imagen)); });
     if (faltan.length) A(`Faltan ${faltan.length} recurso(s) visual(es) del proveedor de IA (${faltan.slice(0, 4).join(', ')}${faltan.length > 4 ? '…' : ''}). La web se construirá como VISTA PREVIA SIN IMÁGENES.`);
   }

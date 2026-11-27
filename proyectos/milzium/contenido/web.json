@@ -1,0 +1,133 @@
+{
+  "version": 1,
+  "empresa": {
+    "nombre": "Milzium Flow Agencia",
+    "slug": "milzium",
+    "sector": "Automatización de citas con inteligencia artificial",
+    "idioma": "es",
+    "contacto": {}
+  },
+  "marca": {
+    "colores": {
+      "fondo": "#070516",
+      "texto": "#f3f0ff",
+      "acento": "#35e6ff",
+      "acento2": "#ff3fb4"
+    },
+    "tipografias": {
+      "titulo": "Space Grotesk",
+      "cuerpo": "Inter"
+    }
+  },
+  "escenario": {
+    "arquetipo": "neon",
+    "semilla": 11,
+    "modo": "video",
+    "metafora": "Un túnel de neón que se recorre con el scroll: cada cuadrado es una cita que se agenda sola.",
+    "video_tunel": "assets/tunel.mp4",
+    "video_tunel_poster": "assets/tunel-poster.webp",
+    "video_aspecto": 0.5625,
+    "video_duracion": 20.01,
+    "video_tunel_webm": "assets/tunel.webm"
+  },
+  "capitulos": [
+    {
+      "id": "portada",
+      "tipo": "portada",
+      "posicion": "izquierda",
+      "etiqueta": "Milzium Flow Agencia",
+      "titulo": "Citas automatizadas. Tu negocio, en su mejor momento.",
+      "texto": "Tu agente de IA atiende, agenda y conecta. Tú te enfocas en lo que sigue.",
+      "boton": {
+        "texto": "Descubre cómo funciona",
+        "enlace": "#cap-cambio"
+      }
+    },
+    {
+      "id": "cambio",
+      "tipo": "texto",
+      "posicion": "derecha",
+      "etiqueta": "El cambio",
+      "titulo": "Menos pendientes. Más negocio.",
+      "texto": "Deja atrás los mensajes sin responder y las citas que se olvidan. Dale a cada cliente una experiencia que sí funciona."
+    },
+    {
+      "id": "beneficios",
+      "tipo": "lista",
+      "posicion": "izquierda",
+      "etiqueta": "Qué hace por ti",
+      "titulo": "Todo en un solo sistema",
+      "items": [
+        {
+          "titulo": "Cada contacto cuenta",
+          "texto": "Un CRM que registra a cada interesado, su historial y de dónde llegó."
+        },
+        {
+          "titulo": "Siempre hay una respuesta",
+          "texto": "Tu agente de IA atiende al instante y propone horarios disponibles."
+        },
+        {
+          "titulo": "Tu agenda, sin enredos",
+          "texto": "Google Calendar bloquea cada cita, y Google Meet si hay videollamada."
+        },
+        {
+          "titulo": "Que no se les olvide",
+          "texto": "Recordatorios un día y una hora antes, y métricas en tu informe mensual."
+        }
+      ]
+    },
+    {
+      "id": "comparacion",
+      "tipo": "texto",
+      "posicion": "derecha",
+      "etiqueta": "Antes y después",
+      "titulo": "Sin un sistema, todo depende de ti",
+      "texto": "Sin un sistema: mensajes a cualquier hora, citas cruzadas y clientes que no llegan. Con Milzium: un agente que atiende y agenda por ti, calendario y recordatorios automáticos, y números claros para seguir creciendo."
+    },
+    {
+      "id": "proceso",
+      "tipo": "lista",
+      "posicion": "izquierda",
+      "etiqueta": "Así de simple",
+      "titulo": "De un “hola” a una cita confirmada",
+      "items": [
+        {
+          "titulo": "Eliges tu plan"
+        },
+        {
+          "titulo": "Pagas la instalación"
+        },
+        {
+          "titulo": "Configuramos y probamos"
+        },
+        {
+          "titulo": "Te adiestramos y salimos en vivo"
+        }
+      ]
+    },
+    {
+      "id": "instalacion",
+      "tipo": "texto",
+      "posicion": "derecha",
+      "etiqueta": "Instalación incluida",
+      "titulo": "Listo para funcionar. Desde el primer día.",
+      "texto": "La instalación completa está incluida en los tres planes: sistema de agendamiento, CRM, agente de inteligencia artificial, Google Calendar, Google Meet, recordatorios, adiestramiento y pruebas antes de salir en vivo."
+    },
+    {
+      "id": "contacto",
+      "tipo": "cierre",
+      "posicion": "izquierda",
+      "etiqueta": "Tu próximo paso",
+      "titulo": "Tu negocio puede crecer. Tu lista de pendientes, no.",
+      "texto": "Prueba gratis. Nosotros configuramos, probamos y te acompañamos hasta que todo esté listo para recibir tu próxima cita.",
+      "boton": {
+        "texto": "Escríbenos por Instagram",
+        "enlace": "https://www.instagram.com/ad0milano/"
+      }
+    }
+  ],
+  "meta": {
+    "titulo": "Milzium Flow Agencia · Citas automatizadas",
+    "descripcion": "Un agente de IA que atiende, agenda y conecta: citas automatizadas para que tu negocio crezca sin pendientes."
+  }
+}

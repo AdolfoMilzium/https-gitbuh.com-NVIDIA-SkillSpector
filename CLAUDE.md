@@ -19,7 +19,7 @@ Cada empresa: `proyectos/<slug>/` con `estado.json` (fase y `job_id`s para retom
 - Los enlaces de afiliado salen de `marca.config.json`; avisa «#publicidad» una vez por flujo.
 
 ## Comandos (`npm run <x> -- <slug>`)
-`extraer -- <url>` · `validar` · `dev` · `construir` · `capturas` · `ver` · `descargar` · `empaquetar` · `contactar -- <slug> --url …` · `preflight`. `npm run demo` abre la demo (no gasta créditos).
+`extraer -- <url>` · `validar` · `dev` · `construir` · `capturas` · `ver` · `descargar` · `video -- <slug> <clip>` · `empaquetar` · `contactar -- <slug> --url …` · `preflight`. `npm run demo` abre la demo (no gasta créditos).
 
 ## Motor (`motor/src`)
-Vite + Three.js (WebGL2) + GSAP (SplitText, ScrambleText) + Lenis, en un único bucle (ticker de GSAP). No cambies estas decisiones técnicas sin consultarlo. Detalles: `docs/motor.md`.
+Vite + Three.js (WebGL2) + GSAP (SplitText, ScrambleText) + Lenis, en un único bucle (ticker de GSAP). El túnel es 3D en tiempo real; **única excepción**, pedida por el usuario: el modo `escenario.modo = "video"`, donde un clip aportado por él hace de túnel y el scroll lo recorre (`npm run video`). No cambies estas decisiones técnicas sin consultarlo. Detalles: `docs/motor.md`.
