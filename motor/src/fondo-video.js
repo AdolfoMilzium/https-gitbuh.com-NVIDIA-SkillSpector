@@ -48,7 +48,17 @@ export function crearFondoVideo(datos, gestor, reducido) {
   const es = datos.escenario, col = datos.marca.colores;
   const el = document.createElement('video');
   const mp4 = el.canPlayType('video/mp4; codecs="avc1.42E01E"');
-  el.src = !mp4 && es.video_tunel_webm ? es.video_tunel_webm : es.video_tunel;
+  const fuente = !mp4 && es.video_tunel_webm ? es.video_tunel_webm : es.video_tunel;
+  // Vídeo incrustado en la propia página (archivo único): se convierte en blob para poder recorrerlo con el scroll
+  const aBlob = (u) => {
+    if (!u.startsWith('data:')) return u;
+    const [cab, b64] = u.split(','); const bin = atob(b64); const arr = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+    return URL.createObjectURL(new Blob([arr], { type: /data:([^;,]+)/.exec(cab)[1] }));
+  };
+  el.src = aBlob(fuente);
+  let reintento = false;
+  el.addEventListener('error', () => { if (!reintento && fuente.startsWith('data:')) { reintento = true; el.src = fuente; el.load(); } });
   el.muted = true; el.playsInline = true; el.preload = 'auto'; el.crossOrigin = 'anonymous'; el.loop = false;
   el.setAttribute('muted', ''); el.setAttribute('playsinline', '');
   gestor.itemStart('video-tunel');

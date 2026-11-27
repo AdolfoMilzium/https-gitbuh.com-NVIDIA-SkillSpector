@@ -9,3 +9,5 @@ proyectos/*/*.zip
 .DS_Store
 proyectos/*/originales/
 proyectos/*/.fuentes/
+proyectos/*/*-unico.html
+proyectos/*/*-artefacto.html

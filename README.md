@@ -56,6 +56,8 @@ claude
 
 Dentro de Claude Code escribe **`/empezar`**: comprueba Higgsfield, explica la prueba gratuita, comprueba que todo está instalado y te pregunta con qué nombre firmarás las propuestas (ese nombre es lo único que aparece como crédito en las webs; la marca del autor del kit no aparece nunca).
 
+¿Quieres enseñar la web sin instalar nada? `npm run unico -- <proyecto>` la guarda en **un solo archivo** (`proyectos/<proyecto>/<proyecto>-unico.html`, con todo incrustado) que se abre con doble clic en cualquier navegador y se puede mandar por email o WhatsApp.
+
 ¿Solo quieres ver cómo queda? `npm run demo` abre la web de demostración (una empresa ficticia). **No gasta créditos**: los paneles se muestran como vista previa.
 
 ## 4. Cómo se usa
@@ -129,7 +131,7 @@ Lo optimiza (sin audio, 24 fps, MP4 + WebM de reserva, ~5 MB), saca un póster, 
 
 ## 10. Comandos técnicos
 
-`npm run extraer -- <url>` · `validar` · `dev` · `construir` · `capturas` · `ver` · `descargar` · `video` · `empaquetar` · `contactar` · `preflight`, todos con `-- <nombre-del-proyecto>`. Cómo funciona el motor: [`docs/motor.md`](docs/motor.md).
+`npm run extraer -- <url>` · `validar` · `dev` · `construir` · `capturas` · `ver` · `descargar` · `video` · `unico` · `empaquetar` · `contactar` · `preflight`, todos con `-- <nombre-del-proyecto>`. Cómo funciona el motor: [`docs/motor.md`](docs/motor.md).
 
 ## 11. Personalizar (marca blanca)
 

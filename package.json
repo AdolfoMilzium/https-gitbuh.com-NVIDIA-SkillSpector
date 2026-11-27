@@ -19,7 +19,8 @@
     "empaquetar": "node scripts/empaquetar.mjs",
     "demo": "node scripts/dev.mjs demo",
     "contactar": "node scripts/contactar.mjs",
-    "video": "node scripts/video-tunel.mjs"
+    "video": "node scripts/video-tunel.mjs",
+    "unico": "node scripts/unico.mjs"
   },
   "dependencies": {
     "archiver": "^7.0.1",
